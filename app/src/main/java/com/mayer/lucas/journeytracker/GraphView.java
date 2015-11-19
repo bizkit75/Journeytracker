@@ -43,7 +43,7 @@ public class GraphView extends View {
         init();
         float height = getHeight();
         float width = getWidth() - 1;
-        float[] arrayRedline = {(float) (height * 0.1666), (float) (height * 0.1666), (float) (height * (0.1666 * 2)), (float) (height * (0.1666 * 3)), (float) (height * (0.1666 * 4)), (float) (height * (0.1666 * 5))};
+        float[] arrayRedline = { (float) (height * 0.1666), (float) (height * (0.1666 * 2)), (float) (height * (0.1666 * 3)), (float) (height * (0.1666 * 4)), (float) (height * (0.1666 * 5))};
 
 
         paint.setColor(Color.WHITE);

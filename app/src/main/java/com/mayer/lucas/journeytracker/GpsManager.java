@@ -16,20 +16,13 @@ import android.util.Log;
  * Created by lulz on 17/11/2015.
  */
 public class GpsManager implements LocationListener {
-
     private  LocationManager locationManager;
-    private Float speed;
-    private Criteria criteria;
-    private String provider;
-    Context context;
-
     public GpsManager(Context context) {
-        this.context = context;
         locationManager = (LocationManager) context
                 .getSystemService(Context.LOCATION_SERVICE);
-        criteria = new Criteria();
+        Criteria criteria = new Criteria();
         criteria.setAccuracy(Criteria.ACCURACY_FINE);
-        provider = locationManager.getBestProvider(criteria, true);
+        String provider = locationManager.getBestProvider(criteria, true);
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    public void requestPermissions(@NonNull String[] permissions, int requestCode)
@@ -52,7 +45,8 @@ public class GpsManager implements LocationListener {
 
     @Override
     public void onLocationChanged(Location location) {
-        speed = location.getSpeed();
+
+        Float speed = location.getSpeed();
         speed = (float) (speed * 3.6);
         MainActivity.UpdateSpeed(speed);
         if (GraphView.ArrayListSpeed.size() < 100) {
@@ -109,32 +103,4 @@ public class GpsManager implements LocationListener {
         Log.e("Information:", "onProviderDisabled: ");
     }
 
-    protected void onResume() {
-        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    public void requestPermissions(@NonNull String[] permissions, int requestCode)
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for Activity#requestPermissions for more details.
-            return;
-        }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1,
-                0, this);
-    }
-
-    protected void onStop() {
-        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    public void requestPermissions(@NonNull String[] permissions, int requestCode)
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for Activity#requestPermissions for more details.
-            return;
-        }
-        locationManager.removeUpdates(this);
-    }
 }

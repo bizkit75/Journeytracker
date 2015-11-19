@@ -8,12 +8,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
-
     static protected GraphView GV;
     GpsManager GM;
-    static protected TextView currentspeed;
-    static protected TextView averagespeed;
-    static protected TextView overralltime;
+    protected static TextView currentspeed;
+    protected static TextView averagespeed;
+    protected static TextView overralltime;
     int count = 0;
     static Thread t;
 
@@ -30,7 +29,6 @@ public class MainActivity extends Activity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if (button.getText().toString().equals("Start")) {
                     TextView gpsmodetext = (TextView) findViewById(R.id.gpsmodetextView);
                     GM = new GpsManager(getBaseContext());
@@ -63,7 +61,6 @@ public class MainActivity extends Activity {
                     count = 0;
                     GM.StopTracking();
                     GV.CleartArrayListSpeed();
-                    GM = null;
 
                     currentspeed.setText("N/A");
                     averagespeed.setText("N/A");
@@ -89,19 +86,11 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (GM != null) {
-
-           // GM.onResume();
-        }
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        if (GM != null) {
-            GM.onStop();
-        }
-
     }
 
     @Override
@@ -116,7 +105,6 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onPause() {
-
         super.onPause();
     }
 }
