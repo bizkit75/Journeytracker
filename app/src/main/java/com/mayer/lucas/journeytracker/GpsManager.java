@@ -9,26 +9,24 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
+
+
 
 /**
  * Created by lulz on 17/11/2015.
  */
 public class GpsManager implements LocationListener {
 
-    private LocationManager locationManager;
-    private Double latitude;
-    private Double longitude;
+    private  LocationManager locationManager;
     private Float speed;
     private Criteria criteria;
     private String provider;
-    boolean isGPSEnabled;
-
+    Context context;
 
     public GpsManager(Context context) {
+        this.context = context;
         locationManager = (LocationManager) context
                 .getSystemService(Context.LOCATION_SERVICE);
-        System.out.println("locationmanager" + locationManager.getAllProviders());
         criteria = new Criteria();
         criteria.setAccuracy(Criteria.ACCURACY_FINE);
         provider = locationManager.getBestProvider(criteria, true);
@@ -41,21 +39,12 @@ public class GpsManager implements LocationListener {
             // to handle the case where the user grants the permission. See the documentation
             // for Activity#requestPermissions for more details.
             //return null;
-
         }
 
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1,
                 0, this);
         locationManager.getLastKnownLocation(provider);
-        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            Toast.makeText(context,
-                    "GPS OFFLINE! Activate it ;)", Toast.LENGTH_LONG).show();
-        } else {
-            isGPSEnabled = locationManager
-                    .isProviderEnabled(LocationManager.GPS_PROVIDER);
-        }
     }
-
 
     private int checkSelfPermission(String accessFineLocation) {
         return 0;
@@ -63,8 +52,6 @@ public class GpsManager implements LocationListener {
 
     @Override
     public void onLocationChanged(Location location) {
-        longitude = location.getLongitude();
-        latitude = location.getLatitude();
         speed = location.getSpeed();
         speed = (float) (speed * 3.6);
         MainActivity.UpdateSpeed(speed);
@@ -72,7 +59,7 @@ public class GpsManager implements LocationListener {
             GraphView.ArrayListSpeed.add(speed);
             MainActivity.GV.invalidate();
 
-        }else{
+        } else {
 
             if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 // TODO: Consider calling
@@ -89,9 +76,7 @@ public class GpsManager implements LocationListener {
             MainActivity.GV.CleartArrayListSpeed();
 
         }
-
-
-        Log.e("Geo_Location", "Latitude: " + latitude + ", Longitude: " + longitude + " speed: " + speed);
+        Log.e("Location", "speed: " + speed);
     }
 
     @Override
@@ -111,7 +96,6 @@ public class GpsManager implements LocationListener {
             return;
         }
         locationManager.removeUpdates(this);
-
     }
 
     @Override
@@ -125,9 +109,7 @@ public class GpsManager implements LocationListener {
         Log.e("Information:", "onProviderDisabled: ");
     }
 
-
     protected void onResume() {
-
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    public void requestPermissions(@NonNull String[] permissions, int requestCode)
@@ -142,7 +124,7 @@ public class GpsManager implements LocationListener {
                 0, this);
     }
 
-    protected void onPause() {
+    protected void onStop() {
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    public void requestPermissions(@NonNull String[] permissions, int requestCode)

@@ -30,6 +30,7 @@ public class MainActivity extends Activity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if (button.getText().toString().equals("Start")) {
                     TextView gpsmodetext = (TextView) findViewById(R.id.gpsmodetextView);
                     GM = new GpsManager(getBaseContext());
@@ -87,10 +88,20 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onResume() {
+        super.onResume();
         if (GM != null) {
+
            // GM.onResume();
         }
-        super.onResume();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (GM != null) {
+            GM.onStop();
+        }
+
     }
 
     @Override
@@ -105,9 +116,7 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onPause() {
-        if (GM != null) {
-            GM.onPause();
-        }
+
         super.onPause();
     }
 }

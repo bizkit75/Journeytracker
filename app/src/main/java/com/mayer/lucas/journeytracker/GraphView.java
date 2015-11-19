@@ -41,8 +41,6 @@ public class GraphView extends View {
     protected void onDraw(Canvas canvas) {
         setBackgroundColor(Color.BLACK);
         init();
-        float border = 20;
-        float startline = border * 2;
         float height = getHeight();
         float width = getWidth() - 1;
         float[] arrayRedline = {(float) (height * 0.1666), (float) (height * 0.1666), (float) (height * (0.1666 * 2)), (float) (height * (0.1666 * 3)), (float) (height * (0.1666 * 4)), (float) (height * (0.1666 * 5))};
@@ -56,10 +54,7 @@ public class GraphView extends View {
 
         if (!ArrayListSpeed.isEmpty()) {
             paint.setColor(Color.GREEN);
-            System.out.println("Size arraylist" + ArrayListSpeed.size());
-            System.out.println("Size width" + getWidth());
             for (int i = 0; i < ArrayListSpeed.size(); i++) {
-                System.out.println("geth height" + axisX[i]);
                 if (i == 0) {
                     canvas.drawLine(axisX[i], (float) (getHeight() * ((60 - ArrayListSpeed.get(i)) * 1.666) / 100), axisX[i], (float) (getHeight() * ((60 - ArrayListSpeed.get(i)) * 1.666) / 100), paint);
                 } else {
@@ -68,7 +63,7 @@ public class GraphView extends View {
             }
             paint.setColor(Color.RED);
             float count = 0;
-            float average = 0;
+            float average;
             for (int i = 0; i < ArrayListSpeed.size(); i++) {
                 count += ArrayListSpeed.get(i);
             }
