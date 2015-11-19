@@ -56,9 +56,12 @@ public class GraphView extends View {
 
         if (!ArrayListSpeed.isEmpty()) {
             paint.setColor(Color.GREEN);
-            System.out.println("geth height" + axisX[1]);
+            System.out.println("Size arraylist" + ArrayListSpeed.size());
+            System.out.println("Size width" + getWidth());
             for (int i = 0; i < ArrayListSpeed.size(); i++) {
+                System.out.println("geth height" + axisX[i]);
                 if (i == 0) {
+                    canvas.drawLine(axisX[i], (float) (getHeight() * ((60 - ArrayListSpeed.get(i)) * 1.666) / 100), axisX[i], (float) (getHeight() * ((60 - ArrayListSpeed.get(i)) * 1.666) / 100), paint);
                 } else {
                     canvas.drawLine(axisX[i - 1], (float) (getHeight() * ((60 - ArrayListSpeed.get(i - 1)) * 1.666) / 100), axisX[i], (float) (getHeight() * ((60 - ArrayListSpeed.get(i)) * 1.666) / 100), paint);
                 }
@@ -73,13 +76,13 @@ public class GraphView extends View {
             canvas.drawLine(0, (float) (getHeight() * ((60 - average) * 1.666) / 100), getWidth(), (float) (getHeight() * ((60 - average) * 1.666) / 100), paint);
             MainActivity.UpdateAverage(average);
         }
-        ArrayListSpeed.clear();
+
     }
 
     protected void init() {
-        float size = getWidth() / 100;
+        float X = (float) ((getWidth() / 100) + 0.84);
         for (int i = 0; i < axisX.length; i++) {
-            axisX[i] = size * i;
+            axisX[i] = (float) ((X * i));
         }
     }
 

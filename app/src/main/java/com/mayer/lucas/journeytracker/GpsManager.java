@@ -70,8 +70,10 @@ public class GpsManager implements LocationListener {
         MainActivity.UpdateSpeed(speed);
         if (GraphView.ArrayListSpeed.size() < 100) {
             GraphView.ArrayListSpeed.add(speed);
-        }else{
             MainActivity.GV.invalidate();
+
+        }else{
+
             if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 // TODO: Consider calling
                 //    public void requestPermissions(@NonNull String[] permissions, int requestCode)
@@ -84,6 +86,8 @@ public class GpsManager implements LocationListener {
             }
             locationManager.removeUpdates(this);
             MainActivity.t.interrupt();
+            MainActivity.GV.CleartArrayListSpeed();
+
         }
 
 

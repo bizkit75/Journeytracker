@@ -46,7 +46,6 @@ public class MainActivity extends Activity {
                                         @Override
                                         public void run() {
                                             Update();
-
                                         }
                                     });
                                 }
@@ -89,7 +88,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         if (GM != null) {
-            GM.onResume();
+           // GM.onResume();
         }
         super.onResume();
     }
