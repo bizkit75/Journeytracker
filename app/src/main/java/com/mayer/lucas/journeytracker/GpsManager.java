@@ -15,9 +15,6 @@ import android.widget.Toast;
  * Created by lulz on 17/11/2015.
  */
 public class GpsManager implements LocationListener {
-    public LocationManager getLocationManager() {
-        return locationManager;
-    }
 
     private LocationManager locationManager;
     private Double latitude;
@@ -25,9 +22,7 @@ public class GpsManager implements LocationListener {
     private Float speed;
     private Criteria criteria;
     private String provider;
-    boolean isNetworkEnabled;
     boolean isGPSEnabled;
-    GraphView GV;
 
 
     public GpsManager(Context context) {
@@ -75,8 +70,7 @@ public class GpsManager implements LocationListener {
         MainActivity.UpdateSpeed(speed);
         if (GraphView.ArrayListSpeed.size() < 100) {
             GraphView.ArrayListSpeed.add(speed);
-        }
-        if (GraphView.ArrayListSpeed.size() == 99) {
+        }else{
             MainActivity.GV.invalidate();
             if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 // TODO: Consider calling
@@ -92,7 +86,8 @@ public class GpsManager implements LocationListener {
             MainActivity.t.interrupt();
         }
 
-        Log.e("Geo_Location", "Latitude: " + latitude + ", Longitude: " + longitude + "speed: " + speed);
+
+        Log.e("Geo_Location", "Latitude: " + latitude + ", Longitude: " + longitude + " speed: " + speed);
     }
 
     @Override
@@ -125,7 +120,7 @@ public class GpsManager implements LocationListener {
     public void onProviderDisabled(String provider) {
         Log.e("Information:", "onProviderDisabled: ");
     }
-    
+
 
     protected void onResume() {
 

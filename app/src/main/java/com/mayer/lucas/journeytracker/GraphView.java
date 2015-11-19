@@ -8,7 +8,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Paint.Align;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -19,9 +18,6 @@ public class GraphView extends View {
     private Paint paint;
     protected static ArrayList<Float> ArrayListSpeed = new ArrayList<Float>();
     float[] axisX = new float[100];
-
-    float average;
-
 
     public GraphView(Context context) {
         super(context);
