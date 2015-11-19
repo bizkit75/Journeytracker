@@ -1,7 +1,6 @@
 package com.mayer.lucas.journeytracker;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
@@ -9,13 +8,8 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import static android.support.v4.content.PermissionChecker.checkSelfPermission;
 
 /**
  * Created by lulz on 17/11/2015.
@@ -58,16 +52,13 @@ public class GpsManager implements LocationListener {
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1,
                 0, this);
         locationManager.getLastKnownLocation(provider);
-        if ( !locationManager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
+        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             Toast.makeText(context,
                     "GPS OFFLINE! Activate it ;)", Toast.LENGTH_LONG).show();
-        }else{
+        } else {
             isGPSEnabled = locationManager
                     .isProviderEnabled(LocationManager.GPS_PROVIDER);
         }
-
-
-
     }
 
 
@@ -134,26 +125,7 @@ public class GpsManager implements LocationListener {
     public void onProviderDisabled(String provider) {
         Log.e("Information:", "onProviderDisabled: ");
     }
-
-    public Double getLongitude() {
-        return longitude;
-    }
-
-    public Double getLatitude() {
-        return latitude;
-    }
-
-    public boolean isGPSEnabled() {
-        return isGPSEnabled;
-    }
-
-    public boolean isNetworkEnabled() {
-        return isNetworkEnabled;
-    }
-
-    public Float getSpeed() {
-        return speed;
-    }
+    
 
     protected void onResume() {
 

@@ -1,48 +1,22 @@
 package com.mayer.lucas.journeytracker;
 
-import android.Manifest;
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.os.Build;
-import android.provider.Settings;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.style.UpdateAppearance;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.Timer;
-import java.util.TimerTask;
-
-import javax.xml.validation.Validator;
-
 
 public class MainActivity extends Activity {
 
     static protected GraphView GV;
     GpsManager GM;
-    Double speed = 0.0;
-    Timer T = new Timer();
     static protected TextView currentspeed;
     static protected TextView averagespeed;
     static protected TextView overralltime;
     int count = 0;
     static Thread t;
 
-
-    public MainActivity() {
-    }
- //llllllooooooopopo
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -137,6 +111,4 @@ public class MainActivity extends Activity {
         }
         super.onPause();
     }
-
-
 }
